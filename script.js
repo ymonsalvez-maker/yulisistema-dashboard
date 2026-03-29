@@ -1,6 +1,34 @@
 let pedidos = [];
 let historial = [];
 
+function guardarDatos(){
+
+localStorage.setItem("pedidos", JSON.stringify(pedidos));
+localStorage.setItem("historial", JSON.stringify(historial));
+
+}
+
+function cargarDatos(){
+
+const pedidosGuardados = localStorage.getItem("pedidos");
+const historialGuardado = localStorage.getItem("historial");
+
+if(pedidosGuardados){
+pedidos = JSON.parse(pedidosGuardados);
+
+pedidos.forEach(p => {
+crearCard(p);
+});
+}
+
+if(historialGuardado){
+historial = JSON.parse(historialGuardado);
+}
+
+actualizarTablaPedidos();
+
+}
+
 const containers = document.querySelectorAll(".card-container");
 
 let draggedCard = null;
@@ -58,6 +86,8 @@ document.getElementById("formulario").style.display = "none";
 
 actualizarTablaPedidos();
 
+guardarDatos();
+
 }
 
 
@@ -108,6 +138,8 @@ registrarHistorial(id, estadoAnterior, nuevoEstado);
 
 actualizarTablaPedidos();
 
+guardarDatos();
+
 }
 
 
@@ -119,6 +151,8 @@ anterior,
 nuevo,
 fecha: new Date().toLocaleString()
 });
+
+guardarDatos();
 
 }
 
@@ -162,3 +196,17 @@ document.getElementById("fecha").value = pedido.fecha;
 document.getElementById("formulario").style.display = "block";
 
 }
+
+
+function mostrarSeccion(seccion){
+
+document.querySelectorAll(".seccion").forEach(div => {
+div.style.display = "none"
+})
+
+document.getElementById(seccion).style.display = "block"
+
+}
+
+
+cargarDatos();
