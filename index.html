@@ -9,7 +9,25 @@
 <body>
 
 <h1>YuliSistema Dashboard</h1>
+  
+<button onclick="crearPedido()">Nuevo Pedido</button>
+  <div id="formulario" style="display:none; margin-bottom:20px;">
+<input id="referencia" placeholder="Referencia">
+<input id="club" placeholder="Club">
 
+<select id="estado">
+<option value="fichas">Fichas Recibidas</option>
+<option value="prueba">Prueba Color</option>
+<option value="sublimacion">Sublimación</option>
+<option value="mesas">Armado Mesas</option>
+<option value="pendientes">Pendientes</option>
+</select>
+
+<input id="fecha" type="date">
+
+<button onclick="guardarPedido()">Guardar</button>
+</div>
+  
 <div class="board">
 
   <div class="column">
