@@ -9,9 +9,10 @@
 <body>
 
 <h1>YuliSistema Dashboard</h1>
-  
+
 <button onclick="crearPedido()">Nuevo Pedido</button>
-  <div id="formulario" style="display:none; margin-bottom:20px;">
+
+<div id="formulario" style="display:none; margin-bottom:20px;">
 <input id="referencia" placeholder="Referencia">
 <input id="club" placeholder="Club">
 
@@ -27,49 +28,32 @@
 
 <button onclick="guardarPedido()">Guardar</button>
 </div>
-  
+
 <div class="board">
 
   <div class="column">
     <h3>Fichas Recibidas</h3>
-    <div id="fichas" class="card-container">
-      <div class="card" draggable="true">
-        Pedido 235 <br>
-        Club: Ejemplo <br>
-        Estado: Ficha recibida <br>
-        Entrega: 20/04
-      </div>
-    </div>
+    <div id="fichas" class="card-container"></div>
   </div>
 
   <div class="column">
     <h3>Prueba Color</h3>
-    <div id="prueba" class="card-container">
-      <div class="card" draggable="true">
-        Pedido 220 <br>
-        Club: Colo Colo <br>
-        Estado: Prueba color <br>
-        Entrega: 18/04
-      </div>
-    </div>
+    <div id="prueba" class="card-container"></div>
   </div>
 
   <div class="column">
     <h3>Sublimación</h3>
-    <div id="sublimacion" class="card-container">
-    </div>
+    <div id="sublimacion" class="card-container"></div>
   </div>
 
   <div class="column">
     <h3>Armado Mesas</h3>
-    <div id="mesas" class="card-container">
-    </div>
+    <div id="mesas" class="card-container"></div>
   </div>
 
   <div class="column">
     <h3>Pendientes</h3>
-    <div id="pendientes" class="card-container">
-    </div>
+    <div id="pendientes" class="card-container"></div>
   </div>
 
 </div>
