@@ -8,7 +8,21 @@
 
 <body>
 
-<h1>YuliSistema Dashboard</h1>
+<h1>YuliSistema</h1>
+
+<div class="navbar">
+<button onclick="mostrarSeccion('dashboard')">Dashboard</button>
+<button onclick="mostrarSeccion('pedidos')">Pedidos</button>
+<button onclick="mostrarSeccion('historial')">Historial</button>
+<button onclick="mostrarSeccion('calendario')">Calendario</button>
+<button onclick="mostrarSeccion('herramientas')">Herramientas</button>
+<button onclick="mostrarSeccion('configuracion')">Configuración</button>
+</div>
+
+
+<!-- DASHBOARD -->
+
+<div id="dashboard" class="seccion">
 
 <button onclick="crearPedido()">Nuevo Pedido</button>
 
@@ -29,34 +43,107 @@
 <button onclick="guardarPedido()">Guardar</button>
 </div>
 
+
 <div class="board">
 
-  <div class="column">
-    <h3>Fichas Recibidas</h3>
-    <div id="fichas" class="card-container"></div>
-  </div>
+<div class="column">
+<h3>Fichas Recibidas</h3>
+<div id="fichas" class="card-container"></div>
+</div>
 
-  <div class="column">
-    <h3>Prueba Color</h3>
-    <div id="prueba" class="card-container"></div>
-  </div>
+<div class="column">
+<h3>Prueba Color</h3>
+<div id="prueba" class="card-container"></div>
+</div>
 
-  <div class="column">
-    <h3>Sublimación</h3>
-    <div id="sublimacion" class="card-container"></div>
-  </div>
+<div class="column">
+<h3>Sublimación</h3>
+<div id="sublimacion" class="card-container"></div>
+</div>
 
-  <div class="column">
-    <h3>Armado Mesas</h3>
-    <div id="mesas" class="card-container"></div>
-  </div>
+<div class="column">
+<h3>Armado Mesas</h3>
+<div id="mesas" class="card-container"></div>
+</div>
 
-  <div class="column">
-    <h3>Pendientes</h3>
-    <div id="pendientes" class="card-container"></div>
-  </div>
+<div class="column">
+<h3>Pendientes</h3>
+<div id="pendientes" class="card-container"></div>
+</div>
 
 </div>
+
+</div>
+
+
+<!-- PEDIDOS -->
+
+<div id="pedidos" class="seccion" style="display:none;">
+<h2>Lista de Pedidos</h2>
+
+<table id="tablaPedidos">
+<thead>
+<tr>
+<th>Referencia</th>
+<th>Club</th>
+<th>Estado</th>
+<th>Fecha</th>
+<th>Editar</th>
+</tr>
+</thead>
+
+<tbody>
+
+</tbody>
+
+</table>
+
+</div>
+
+
+<!-- HISTORIAL -->
+
+<div id="historial" class="seccion" style="display:none;">
+<h2>Historial</h2>
+
+<h3>Movimientos</h3>
+<div id="historialMovimientos"></div>
+
+<h3>Pedidos Terminados</h3>
+<div id="historialPedidos"></div>
+
+</div>
+
+
+<!-- CALENDARIO -->
+
+<div id="calendario" class="seccion" style="display:none;">
+<h2>Calendario</h2>
+<div id="calendarioVista"></div>
+</div>
+
+
+<!-- HERRAMIENTAS -->
+
+<div id="herramientas" class="seccion" style="display:none;">
+<h2>Herramientas</h2>
+<p>Próximamente herramientas</p>
+</div>
+
+
+<!-- CONFIGURACION -->
+
+<div id="configuracion" class="seccion" style="display:none;">
+<h2>Configuración</h2>
+
+<h3>Tipos de Error</h3>
+<div id="configErrores"></div>
+
+<h3>Responsables</h3>
+<div id="configResponsables"></div>
+
+</div>
+
 
 <script src="script.js"></script>
 
