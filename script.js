@@ -48,6 +48,11 @@ const ref = document.getElementById("referencia").value;
 const club = document.getElementById("club").value;
 const estado = document.getElementById("estado").value;
 const fecha = document.getElementById("fecha").value;
+const cliente = document.getElementById("cliente").value;
+const telefono = document.getElementById("telefono").value;
+const email = document.getElementById("email").value;
+const vendedor = document.getElementById("vendedor").value;
+const notas = document.getElementById("notas").value;
 
 const { error } = await supabase
 .from("pedidos")
@@ -56,7 +61,12 @@ const { error } = await supabase
 referencia: ref,
 club: club,
 estado: estado,
-fecha_entrega: fecha
+fecha_entrega: fecha,
+cliente: cliente,
+telefono: telefono,
+email: email,
+vendedor: vendedor,
+notas: notas
 }
 ]);
 
@@ -83,9 +93,10 @@ card.draggable = true;
 card.dataset.id = pedido.id;
 
 card.innerHTML = `
-<strong>Pedido ${pedido.referencia}</strong> <br>
-Club: ${pedido.club} <br>
-Entrega: ${pedido.fecha_entrega}
+<strong>${pedido.referencia}</strong><br>
+${pedido.club}<br>
+${pedido.deporte || ""}<br>
+Entrega: ${pedido.fecha_entrega || ""}
 `;
 
 card.addEventListener("click", () => {
