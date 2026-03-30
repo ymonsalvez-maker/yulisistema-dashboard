@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(){
 
 const SUPABASE_URL = "https://jzftsjylfvdilmlqtxzu.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp6ZnRzanlsZnZkaWxtbHF0eHp1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4MjYyMTksImV4cCI6MjA5MDQwMjIxOX0.NrVfCUaTT-U7KHhLMUIdaNxnKblAhnn2ILmaNw4fXko";
+const SUPABASE_KEY = "TU_ANON_KEY_AQUI";
 
 const supabase = window.supabase.createClient(
 SUPABASE_URL,
@@ -83,9 +83,9 @@ card.draggable = true;
 card.dataset.id = pedido.id;
 
 card.innerHTML = `
-<strong>Pedido ${pedido.ref}</strong> <br>
+<strong>Pedido ${pedido.referencia}</strong> <br>
 Club: ${pedido.club} <br>
-Entrega: ${pedido.fecha}
+Entrega: ${pedido.fecha_entrega}
 `;
 
 card.addEventListener("click", () => {
@@ -138,10 +138,10 @@ pedidos.forEach(p => {
 const row = document.createElement("tr");
 
 row.innerHTML = `
-<td>${p.ref}</td>
+<td>${p.referencia}</td>
 <td>${p.club}</td>
 <td>${p.estado}</td>
-<td>${p.fecha}</td>
+<td>${p.fecha_entrega || ""}</td>
 <td><button onclick="editarPedido(${p.id})">Editar</button></td>
 `;
 
@@ -158,10 +158,10 @@ const pedido = pedidos.find(p => p.id == id);
 
 if(!pedido) return;
 
-document.getElementById("referencia").value = pedido.ref;
+document.getElementById("referencia").value = pedido.referencia;
 document.getElementById("club").value = pedido.club;
 document.getElementById("estado").value = pedido.estado;
-document.getElementById("fecha").value = pedido.fecha;
+document.getElementById("fecha").value = pedido.fecha_entrega;
 
 document.getElementById("formulario").style.display = "block";
 
@@ -186,17 +186,9 @@ document.querySelectorAll(".card-container").forEach(c => c.innerHTML = "");
 
 data.forEach(pedido => {
 
-const p = {
-id: pedido.id,
-ref: pedido.referencia,
-club: pedido.club,
-estado: pedido.estado,
-fecha: pedido.fecha_entrega
-};
+pedidos.push(pedido);
 
-pedidos.push(p);
-
-crearCard(p);
+crearCard(pedido);
 
 });
 
