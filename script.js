@@ -1,5 +1,5 @@
 const SUPABASE_URL = "https://jzftsjylfvdilmlqtxzu.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp6ZnRzanlsZnZkaWxtbHF0eHp1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4MjYyMTksImV4cCI6MjA5MDQwMjIxOX0.NrVfCUaTT-U7KHhLMUIdaNxnKblAhnn2ILmaNw4fXko";
+const SUPABASE_KEY = "TU_ANON_KEY_AQUI";
 
 const supabase = window.supabase.createClient(
 SUPABASE_URL,
@@ -8,34 +8,6 @@ SUPABASE_KEY
 
 let pedidos = [];
 let historial = [];
-
-function guardarDatos(){
-
-localStorage.setItem("pedidos", JSON.stringify(pedidos));
-localStorage.setItem("historial", JSON.stringify(historial));
-
-}
-
-function cargarDatos(){
-
-const pedidosGuardados = localStorage.getItem("pedidos");
-const historialGuardado = localStorage.getItem("historial");
-
-if(pedidosGuardados){
-pedidos = JSON.parse(pedidosGuardados);
-
-pedidos.forEach(p => {
-crearCard(p);
-});
-}
-
-if(historialGuardado){
-historial = JSON.parse(historialGuardado);
-}
-
-actualizarTablaPedidos();
-
-}
 
 const containers = document.querySelectorAll(".card-container");
 
@@ -68,33 +40,33 @@ document.getElementById("formulario").style.display = "block";
 }
 
 
-function guardarPedido(){
+async function guardarPedido(){
 
 const ref = document.getElementById("referencia").value;
 const club = document.getElementById("club").value;
 const estado = document.getElementById("estado").value;
 const fecha = document.getElementById("fecha").value;
 
-const id = Date.now();
+const { error } = await supabase
+.from("pedidos")
+.insert([
+{
+referencia: ref,
+club: club,
+estado: estado,
+fecha_entrega: fecha
+}
+]);
 
-const pedido = {
-id,
-ref,
-club,
-estado,
-fecha,
-fechaCreacion: new Date().toLocaleString()
-};
-
-pedidos.push(pedido);
-
-crearCard(pedido);
+if(error){
+console.error(error);
+alert("Error al guardar pedido");
+return;
+}
 
 document.getElementById("formulario").style.display = "none";
 
-actualizarTablaPedidos();
-
-guardarDatos();
+cargarPedidos();
 
 }
 
@@ -134,33 +106,19 @@ draggedCard = card;
 }
 
 
-function actualizarEstado(id, nuevoEstado){
+async function actualizarEstado(id, nuevoEstado){
 
-const pedido = pedidos.find(p => p.id == id);
+const { error } = await supabase
+.from("pedidos")
+.update({ estado: nuevoEstado })
+.eq("id", id);
 
-const estadoAnterior = pedido.estado;
-
-pedido.estado = nuevoEstado;
-
-registrarHistorial(id, estadoAnterior, nuevoEstado);
-
-actualizarTablaPedidos();
-
-guardarDatos();
-
+if(error){
+console.error("Error actualizando estado:", error);
+return;
 }
 
-
-function registrarHistorial(id, anterior, nuevo){
-
-historial.push({
-id,
-anterior,
-nuevo,
-fecha: new Date().toLocaleString()
-});
-
-guardarDatos();
+cargarPedidos();
 
 }
 
@@ -196,12 +154,51 @@ function editarPedido(id){
 
 const pedido = pedidos.find(p => p.id == id);
 
+if(!pedido) return;
+
 document.getElementById("referencia").value = pedido.ref;
 document.getElementById("club").value = pedido.club;
 document.getElementById("estado").value = pedido.estado;
 document.getElementById("fecha").value = pedido.fecha;
 
 document.getElementById("formulario").style.display = "block";
+
+}
+
+
+async function cargarPedidos(){
+
+const { data, error } = await supabase
+.from("pedidos")
+.select("*")
+.order("id", { ascending: false });
+
+if(error){
+console.error(error);
+return;
+}
+
+pedidos = [];
+
+document.querySelectorAll(".card-container").forEach(c => c.innerHTML = "");
+
+data.forEach(pedido => {
+
+const p = {
+id: pedido.id,
+ref: pedido.referencia,
+club: pedido.club,
+estado: pedido.estado,
+fecha: pedido.fecha_entrega
+};
+
+pedidos.push(p);
+
+crearCard(p);
+
+});
+
+actualizarTablaPedidos();
 
 }
 
@@ -217,4 +214,4 @@ document.getElementById(seccion).style.display = "block"
 }
 
 
-cargarDatos();
+cargarPedidos();
