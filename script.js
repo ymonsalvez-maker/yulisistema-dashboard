@@ -1,5 +1,7 @@
+document.addEventListener("DOMContentLoaded", function(){
+
 const SUPABASE_URL = "https://jzftsjylfvdilmlqtxzu.supabase.co";
-const SUPABASE_KEY = "TU_ANON_KEY_AQUI";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp6ZnRzanlsZnZkaWxtbHF0eHp1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4MjYyMTksImV4cCI6MjA5MDQwMjIxOX0.NrVfCUaTT-U7KHhLMUIdaNxnKblAhnn2ILmaNw4fXko";
 
 const supabase = window.supabase.createClient(
 SUPABASE_URL,
@@ -35,12 +37,12 @@ actualizarEstado(id, nuevoEstado);
 });
 
 
-function crearPedido(){
+window.crearPedido = function(){
 document.getElementById("formulario").style.display = "block";
 }
 
 
-async function guardarPedido(){
+window.guardarPedido = async function(){
 
 const ref = document.getElementById("referencia").value;
 const club = document.getElementById("club").value;
@@ -114,7 +116,7 @@ const { error } = await supabase
 .eq("id", id);
 
 if(error){
-console.error("Error actualizando estado:", error);
+console.error(error);
 return;
 }
 
@@ -203,7 +205,7 @@ actualizarTablaPedidos();
 }
 
 
-function mostrarSeccion(seccion){
+window.mostrarSeccion = function(seccion){
 
 document.querySelectorAll(".seccion").forEach(div => {
 div.style.display = "none"
@@ -215,3 +217,5 @@ document.getElementById(seccion).style.display = "block"
 
 
 cargarPedidos();
+
+});
