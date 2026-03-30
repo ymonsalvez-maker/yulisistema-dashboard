@@ -1,3 +1,11 @@
+const SUPABASE_URL = "https://jzftsjylfvdilmlqtxzu.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp6ZnRzanlsZnZkaWxtbHF0eHp1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4MjYyMTksImV4cCI6MjA5MDQwMjIxOX0.NrVfCUaTT-U7KHhLMUIdaNxnKblAhnn2ILmaNw4fXko";
+
+const supabase = window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
 let pedidos = [];
 let historial = [];
 
